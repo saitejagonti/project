@@ -8,8 +8,7 @@ mkdir dockerimg
 cd dockerimg
 touch dockerfile
 cat <<EOT>>dockerfile
-RUN apt-get update
-RUN apt-get -y install maven
+FROM maven
 COPY pom.xml /usr/local/service/pom.xml
 COPY src /usr/local/service/src
 WORKDIR /usr/local/service
