@@ -19,7 +19,7 @@ COPY . .
 RUN mvn clean install
 
 FROM tomcat
-ADD --from=maven_builder /app/target/*.war /usr/local/tomcat/webapps
+COPY --from=maven_builder /app/target/*.war /usr/local/tomcat/webapps
 EXPOSE 8080
 USER tomcat
 CMD ["catalina.sh","run"]
