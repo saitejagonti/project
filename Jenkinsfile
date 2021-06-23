@@ -11,7 +11,7 @@ pipeline {
 		 sh label: '', script: '''rm -rf dockerimg
 mkdir dockerimg
 cd dockerimg
-cp app/target/*.war .
+cp /target/*.war .
 touch dockerfile
 cat <<EOT>>dockerfile
 FROM tomcat
