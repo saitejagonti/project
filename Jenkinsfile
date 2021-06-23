@@ -1,25 +1,21 @@
 pipeline {
      agent any
      stages{
-	stage("Docker Image"){
+	stage("build code"){
+            steps{
+                sh 'mvn clean install'
+	  }
+        }
+	stage("docker image") {
 	     steps {
 		 sh label: '', script: '''rm -rf dockerimg
 mkdir dockerimg
 cd dockerimg
+cp app/target/*.war .
 touch dockerfile
 cat <<EOT>>dockerfile
-
-FROM alpine/git
-WORKDIR /app
-RUN git clone https://github.com/saitejagonti/project.git
-
-FROM maven as maven_builder 
-WORKDIR /app
-COPY . .
-RUN mvn clean install
-
 FROM tomcat
-COPY --from=maven_builder /app/target/*.war /usr/local/tomcat/webapps
+ADD *.war /usr/local/tomcat/webapps
 EXPOSE 8080
 USER tomcat
 CMD ["catalina.sh","run"]
