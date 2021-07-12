@@ -11,7 +11,7 @@ pipeline {
 		 sh label: '', script: '''rm -rf dockerimg
 mkdir dockerimg
 cd dockerimg
-cp /var/lib/jenkins/workspace/sample_project3/target/*war .
+cp /var/lib/jenkins/workspace/$JOB_NAME/target/*war .
 touch dockerfile
 cat <<EOT>>dockerfile
 FROM tomcat
